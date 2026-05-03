@@ -3,7 +3,9 @@ import { AlunoService } from '../../application/aluno.service';
 import { MatriculaService } from '../../../matricula/application/matricula.service';
 import { CreateAlunoDto } from './dto/create-aluno.dto';
 import { UpdateAlunoDto } from './dto/update-aluno.dto';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Alunos')
 @Controller('alunos')
 export class AlunoController {
     constructor(
@@ -12,11 +14,16 @@ export class AlunoController {
     ) { }
 
     @Get()
+    @ApiOperation({ summary: 'Lista todos os alunos' })
+    @ApiResponse({ status: 200, description: 'Lista de alunos retornada com sucesso.' })
     findAll() {
         return this.alunoService.findAll();
     }
 
     @Get(':id')
+    @ApiOperation({ summary: 'Busca um aluno pelo ID' })
+    @ApiResponse({ status: 200, description: 'Aluno encontrado.' })
+    @ApiResponse({ status: 404, description: 'Aluno não encontrado.' })
     findById(@Param('id', ParseUUIDPipe) id: string) {
         return this.alunoService.findById(id);
     }

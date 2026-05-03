@@ -3,7 +3,9 @@ import { ProfessorService } from '../../application/professor.service';
 import { CreateProfessorDto } from './dto/create-professor.dto';
 import { UpdateProfessorDto } from './dto/update-professor.dto';
 import { TurmaService } from '../../../turma/application/turma.service';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Professores')
 @Controller('professores')
 export class ProfessorController {
     constructor(
@@ -12,11 +14,16 @@ export class ProfessorController {
     ) { }
 
     @Get()
+    @ApiOperation({ summary: 'Lista todos os professores' })
+    @ApiResponse({ status: 200, description: 'Lista de professores retornada com sucesso.' })
     findAll() {
         return this.professorService.findAll();
     }
 
     @Get(':id')
+    @ApiOperation({ summary: 'Busca um professor pelo ID' })
+    @ApiResponse({ status: 200, description: 'Professor encontrado.' })
+    @ApiResponse({ status: 404, description: 'Professor não encontrado.' })
     findById(@Param('id', ParseUUIDPipe) id: string) {
         return this.professorService.findById(id);
     }

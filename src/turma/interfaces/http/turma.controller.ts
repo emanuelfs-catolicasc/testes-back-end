@@ -3,7 +3,9 @@ import { MatriculaService } from '../../../matricula/application/matricula.servi
 import { TurmaService } from '../../application/turma.service';
 import { CreateTurmaDto } from './dto/create-turma.dto';
 import { UpdateTurmaDto } from './dto/update-turma.dto';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Turmas')
 @Controller('turmas')
 export class TurmaController {
     constructor(
@@ -12,11 +14,16 @@ export class TurmaController {
     ) { }
 
     @Get()
+    @ApiOperation({ summary: 'Lista todos as turmas' })
+    @ApiResponse({ status: 200, description: 'Lista de turmas retornada com sucesso.' })
     findAll() {
         return this.turmaService.findAll();
     }
 
     @Get(':id')
+    @ApiOperation({ summary: 'Busca uma turma pelo ID' })
+    @ApiResponse({ status: 200, description: 'Turma encontrada.' })
+    @ApiResponse({ status: 404, description: 'Turma não encontrada.' })
     findById(@Param('id', ParseUUIDPipe) id: string) {
         return this.turmaService.findById(id);
     }
