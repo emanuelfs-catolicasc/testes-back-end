@@ -1,0 +1,16 @@
+networks:
+  testes:
+    external: false
+
+services:
+  db:
+    image: postgres:18.3-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=testes
+    networks:
+      - testes
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
