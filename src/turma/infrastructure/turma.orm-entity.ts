@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { DisciplinaOrmEntity } from '../../disciplina/infrastructure/disciplina.orm-entity';
 import { ProfessorOrmEntity } from '../../professor/infrastructure/professor.orm-entity';
+import { charColumnType, uuidColumnType } from '../../shared/infrastructure/database/column-types';
 
 @Entity('turma')
 @Unique('uk_turma_codigo', ['codigo'])
@@ -9,13 +10,13 @@ export class TurmaOrmEntity {
     @PrimaryGeneratedColumn('uuid')
     id!: string;
 
-    @Column({ type: 'char', length: 10 })
+    @Column({ type: charColumnType(), length: 10 })
     codigo!: string;
 
-    @Column({ name: 'id_disciplina', type: 'uuid' })
+    @Column({ name: 'id_disciplina', type: uuidColumnType() })
     idDisciplina!: string;
 
-    @Column({ name: 'id_professor', type: 'uuid' })
+    @Column({ name: 'id_professor', type: uuidColumnType() })
     idProfessor!: string;
 
     @Column({ type: 'smallint' })
