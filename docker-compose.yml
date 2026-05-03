@@ -1,16 +1,22 @@
-networks:
-  testes:
-    external: false
-
 services:
   db:
-    image: postgres:18.3-alpine
+    image: postgres:17-alpine
+    container_name: postgres-testes
     restart: always
     environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=123456
-      - POSTGRES_DB=testes
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: testes
+    ports:
+      - "5432:5432"
     networks:
       - testes
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+
+networks:
+  testes:
+    driver: bridge
+
+volumes:
+  postgres_data:

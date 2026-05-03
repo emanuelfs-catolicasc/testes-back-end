@@ -1,0 +1,12 @@
+import { IsInt, IsNotEmpty, IsString, MaxLength, Min } from 'class-validator';
+
+export class CreateAlunoDto {
+    @IsInt()
+    @Min(1)
+    matricula!: number;
+
+    @IsString()
+    @IsNotEmpty()
+    @MaxLength(200)
+    nome!: string;
+}
